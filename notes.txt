@@ -1,0 +1,24 @@
+Notes from padding. Think they're wrong but gonna keep them because they took me a while to come up with.
+
+# str is max 16 characters or less
+    # key has to be 32 characters (hex)
+
+
+    # divide hex length by 8
+    # if YES REMAINDER:    e.g. 68656c6c6f = 10     10/8 = 1.25
+        # remove 1 from length until that / 8 has no remainder      e.g. 10-1 = 9   9/8 = 1.125,   9-1 = 8    8/8=1
+        # add these 1s to list   e.g. [1, 1] (this is overlap into other btye)
+        # minus length of list from 8 to get missing bits needed for full byte    e.g. 8-2=6
+        # divide this number by 2 (since hex values come in pairs)    e.g. 6/2 = 3
+        # 3 is how many hexidecimal padding values need to be added for this to be a full byte
+
+        # add missing bits to hex length and continue with function below vv   e.g. 10 + 6 = 16
+
+
+    # divide hex length by 8
+    # if NO REMAINDER:     e.g. 6c6c6c6c = 8
+        # minus length from 32      e.g. 32 - 8 = 24
+        # divide that number by 8   e.g. 24 / 8 = 3
+        # so need 3 x (8 bits) = 24 more bits for full key!
+
+        # add '03' 24/2 times to hex  e.g. 6c6c6c6c030303030303030303030303
